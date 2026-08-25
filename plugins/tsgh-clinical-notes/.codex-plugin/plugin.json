@@ -1,0 +1,27 @@
+{
+  "name": "tsgh-clinical-notes",
+  "version": "0.1.0+codex.20260825135049",
+  "description": "Personal TSGH-aligned inpatient clinical documentation workflows.",
+  "author": {
+    "name": "Personal clinical documentation tools"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "TSGH Clinical Notes",
+    "shortDescription": "Draft TSGH-aligned English inpatient clinical notes.",
+    "longDescription": "A personal, instruction-only plugin that bundles TSGH-aligned admission, progress, weekly, discharge, and operation-note workflows. Use only with authorized, minimum-necessary clinical information and clinician review.",
+    "developerName": "Personal clinical documentation tools",
+    "category": "Productivity",
+    "capabilities": [
+      "Write"
+    ],
+    "brandColor": "#062D57",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/logo.png",
+    "defaultPrompt": [
+      "Draft an admission note from these supplied facts.",
+      "Draft a problem-oriented progress note.",
+      "Draft a discharge summary from this hospitalization."
+    ]
+  }
+}

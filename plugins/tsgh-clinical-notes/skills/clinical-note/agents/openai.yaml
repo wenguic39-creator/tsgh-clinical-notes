@@ -1,0 +1,4 @@
+interface:
+  display_name: "Clinical Note"
+  short_description: "Route inpatient data into TSGH-aligned notes"
+  default_prompt: "Use $clinical-note in Copy mode to generate the requested TSGH-aligned English clinical note from the supplied records."

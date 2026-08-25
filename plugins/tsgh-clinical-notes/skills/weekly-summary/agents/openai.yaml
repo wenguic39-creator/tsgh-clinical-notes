@@ -1,0 +1,4 @@
+interface:
+  display_name: "Weekly Summary"
+  short_description: "Draft TSGH-aligned inpatient weekly summaries"
+  default_prompt: "Use $weekly-summary to draft a concise TSGH-aligned English Weekly Summary from the supplied dated records."

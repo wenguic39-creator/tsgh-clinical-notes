@@ -1,0 +1,4 @@
+interface:
+  display_name: "Operation Note"
+  short_description: "Draft TSGH-aligned English operation notes"
+  default_prompt: "Use $operation-note to draft a TSGH-aligned English Operation Note from the supplied operative facts."

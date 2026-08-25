@@ -23,4 +23,3 @@ Open a new Codex task after installation.
 - The cover includes Tri-Service General Hospital identity elements. Confirm institutional brand authorization before redistribution or reuse outside the intended setting.
 
 完整中文說明請見 [安裝說明.md](安裝說明.md)。
-

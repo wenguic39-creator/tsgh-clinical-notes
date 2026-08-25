@@ -1,0 +1,20 @@
+{
+  "name": "tsgh-team",
+  "interface": {
+    "displayName": "TSGH Clinical Notes Team"
+  },
+  "plugins": [
+    {
+      "name": "tsgh-clinical-notes",
+      "source": {
+        "source": "local",
+        "path": "./plugins/tsgh-clinical-notes"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

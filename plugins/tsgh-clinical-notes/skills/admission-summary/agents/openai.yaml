@@ -1,0 +1,4 @@
+interface:
+  display_name: "Admission Note"
+  short_description: "Draft TSGH-aligned admission notes and summaries"
+  default_prompt: "Use $admission-summary to draft a TSGH-aligned English admission note or acceptance summary from the supplied facts."

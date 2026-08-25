@@ -1,0 +1,4 @@
+interface:
+  display_name: "Discharge Summary"
+  short_description: "Draft TSGH-aligned English discharge summaries"
+  default_prompt: "Use $discharge-summary to draft a TSGH-aligned English Discharge Summary from the supplied hospitalization records."
