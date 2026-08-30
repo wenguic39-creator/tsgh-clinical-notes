@@ -11,15 +11,16 @@ Create a complete, concise English Operation Note that reflects what actually oc
 
 - Use only supplied records the requester is authorized to handle and only the minimum necessary identifiers.
 - Do not invent or infer a time-out, consent, diagnosis, finding, maneuver, anatomy, device, specimen, blood loss, complication, count, closure method, postoperative order, or patient condition.
-- Preserve exact laterality, anatomy, dates/times, procedure and device names, dimensions, quantities, medication details, estimated blood loss, urine output, and uncertainty.
+- Preserve exact laterality, anatomy, dates/times, procedure and device names, dimensions, quantities, medication details, estimated blood loss, urine output, and uncertainty. Keep every supplied unit directly beside its measured value; never drop, convert, or guess a unit.
+- Never write `Not provided`, `None provided`, or a missing-data placeholder inside the operative record. Keep missing critical elements and possible verification or further-evaluation prompts in a clearly separated `Physician considerations — outside the medical record` section after the note.
 - Distinguish preoperative diagnosis, postoperative diagnosis, indication, findings, and procedure. Do not make them interchangeable.
 - Do not independently recommend operative technique, antibiotics, thromboprophylaxis, drains, monitoring, or postoperative care.
 - Keep data local and treat the result as requiring surgeon review and sign-off.
 
 ## Output modes
 
-- Default to **Copy mode**: output only the completed Operation Note with the required headings and no warning, preface, citation, explanation, or commentary.
-- Use **Review mode** only when requested: output the note, followed by `Review flags` for missing critical elements, laterality or count conflicts, ambiguous timing/anatomy/device details, unexplained diagnosis changes, and statements requiring verification.
+- Default to **Copy mode**: output the completed Operation Note first. Append an outside-record physician-considerations section only when a missing critical element, conflict, or ambiguous unit needs attention.
+- Use **Review mode** only when requested: output the note, followed by the same outside-record section for missing critical elements, laterality or count conflicts, ambiguous timing/anatomy/device details, unexplained diagnosis changes, and statements requiring verification.
 
 ## Drafting workflow
 
@@ -32,7 +33,7 @@ Create a complete, concise English Operation Note that reflects what actually oc
 
 ## Required output
 
-Use the headings below in this order. Write `Not provided` for a missing required item; never convert silence into `none`, `normal`, or `without complication`.
+Use the headings below in this order. Leave a missing required item blank and identify it only outside the medical record; never convert silence into `none`, `normal`, or `without complication`. A possible examination, test, monitoring step, or consultation may appear only as a neutral physician consideration, never as an operative or postoperative order unless supplied.
 
 ### Date and Time
 

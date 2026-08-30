@@ -11,15 +11,16 @@ Create an accurate, chronological English Discharge Summary that communicates th
 
 - Use only supplied records the requester is authorized to handle and only the minimum necessary identifiers.
 - Do not invent or infer final diagnoses, causal relationships, treatment effects, complications, resolved status, medication reconciliation, follow-up, or discharge readiness.
-- Preserve exact dates, values, units, medication details, procedure names, pathology or imaging wording, uncertainty, and conflicts.
+- Preserve exact dates, values, medication details, procedure names, pathology or imaging wording, uncertainty, and conflicts. Keep every supplied unit directly beside its measured value; never drop, convert, or guess a unit.
+- Never write `Not provided`, `None provided`, or a missing-data placeholder inside the summary. Keep clinically relevant gaps and possible further-evaluation prompts in a clearly separated `Physician considerations — outside the medical record` section after the summary.
 - Distinguish admission diagnoses from final discharge diagnoses. Use only clinician-documented final diagnoses in the discharge list.
 - Do not independently recommend medication changes, follow-up, tests, diet, activity, wound care, or warning signs.
 - Keep data local and treat the result as requiring physician review and sign-off.
 
 ## Output modes
 
-- Default to **Copy mode**: output only the completed Discharge Summary with the required headings and no warning, preface, citation, explanation, or commentary.
-- Use **Review mode** only when requested: output the summary, followed by `Review flags` for essential omissions, material conflicts, unreconciled diagnoses or medications, ambiguous dates/units/attribution, and statements requiring verification.
+- Default to **Copy mode**: output the completed Discharge Summary first. Append an outside-record physician-considerations section only when a clinically relevant gap, conflict, unreconciled item, or ambiguous unit needs attention.
+- Use **Review mode** only when requested: output the summary, followed by the same outside-record section for essential omissions, material conflicts, unreconciled diagnoses or medications, ambiguous dates/units/attribution, and statements requiring verification.
 
 ## Workflow
 
@@ -32,7 +33,7 @@ Create an accurate, chronological English Discharge Summary that communicates th
 
 ## Required output
 
-Use the headings below in this order. Write `Not provided` when a required field lacks source data; do not fabricate a normal or negative statement.
+Use the headings below in this order. When a required field lacks source data, leave its content blank and identify the gap only outside the medical record; do not fabricate a normal or negative statement. A possible follow-up test, examination, imaging study, monitoring step, or consultation may appear only as a neutral physician consideration, never as a documented discharge instruction unless supplied.
 
 ### Admission Date
 
@@ -80,7 +81,7 @@ Write a concise chronological narrative. Include major diagnostic turning points
 
 ### Complications
 
-List documented inpatient complications and their status. Write `None documented` only when the source explicitly states there were no complications; otherwise write `Not provided`.
+List documented inpatient complications and their status. Write `None documented` only when the source explicitly states there were no complications; otherwise leave the field blank and flag the missing complication status outside the medical record when clinically relevant.
 
 ### Condition on Discharge
 

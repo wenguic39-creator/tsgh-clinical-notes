@@ -12,14 +12,14 @@ Create one comprehensive but concise English paragraph summarizing the inpatient
 - Use only supplied records the requester is authorized to handle.
 - Do not invent or infer diagnoses, causal relationships, treatment responses, complications, or future plans.
 - Do not independently recommend tests, medications, procedures, dose changes, disposition, or follow-up.
-- Preserve important dates, values, units, medication and procedure details, problem numbering when relevant, uncertainty, and conflicts.
+- Preserve important dates, values, medication and procedure details, problem numbering when relevant, uncertainty, and conflicts. Keep every supplied unit directly beside its measured value; never drop, convert, or guess a unit.
 - Distinguish an intervention from its indication and a temporal sequence from a proven causal relationship.
 - Keep data local and treat the result as requiring physician review and sign-off.
 
 ## Output modes
 
-- Default to **Copy mode**: output only the single-paragraph Weekly Summary without a heading, warning, preface, citation, or commentary.
-- Use **Review mode** only when requested: output the paragraph, followed by `Review flags` for essential omissions, material conflicts, ambiguous dates/units/attribution, and statements requiring verification.
+- Default to **Copy mode**: output the single-paragraph Weekly Summary first. Append `---` and `Physician considerations — outside the medical record` only when a clinically relevant gap, conflict, or ambiguous unit needs attention.
+- Use **Review mode** only when requested: output the paragraph, followed by the same outside-record section for essential omissions, material conflicts, ambiguous dates/units/attribution, and statements requiring verification.
 
 ## Workflow
 
@@ -54,7 +54,7 @@ Do not force every element into the paragraph. Omit unsupported details rather t
 ## Missing or conflicting information
 
 - Omit a missing detail when the paragraph remains accurate.
-- If the covered period or another essential fact is missing, use a short placeholder such as `[date not provided]`.
+- If the covered period or another essential fact is missing, omit it from the paragraph and identify it outside the medical record. A neutral prompt may ask the physician to confirm the missing fact or consider whether focused examination, laboratory testing, imaging, monitoring, or consultation is clinically indicated; never present it as an actual plan.
 - State a clinically important unresolved conflict briefly; do not choose one value or interpretation.
 
 ## Final check

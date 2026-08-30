@@ -11,7 +11,8 @@ Provide one entry point for the installed inpatient documentation skills. Accept
 
 - Use only records the requester is authorized to handle and only the minimum necessary identifiers.
 - Do not invent, infer, normalize, or silently reconcile symptoms, findings, diagnoses, trends, treatment responses, medications, doses, tests, procedures, or plans.
-- Preserve clinically important dates, times, values, units, medication details, uncertainty, attribution, and conflicts.
+- Preserve clinically important dates, times, values, medication details, uncertainty, attribution, and conflicts. Keep every supplied unit directly beside its measured value; never drop, convert, or guess a unit.
+- Never place `Not provided`, `None provided`, `Plan not provided`, bracketed missing-data placeholders, or equivalent filler inside a medical record. Omit the missing content or leave a required local-form field blank, and place any clinically relevant gap in the outside-record physician section.
 - Distinguish patient-reported information, observed facts, test results, and clinician-authored assessment or plans.
 - Treat every result as a draft requiring physician review and sign-off, without adding that warning to Copy mode output.
 - Keep source data local. Do not use web search, plugins, connectors, or remote services while processing a clinical note.
@@ -57,23 +58,21 @@ Apply the local guide's four quality criteria throughout: completeness, clarity,
 
 ### Copy mode - default
 
-Return only the final note in the routed skill's required format. Do not include a preface, warning, citation, source summary, explanation, or closing remark. Retain only headings required by that format.
+Return the copy-ready note first in the routed skill's required format. When clinically relevant information is missing, conflicting, or ambiguous, append the boundary `---` and the heading `Physician considerations — outside the medical record`, followed by concise physician-facing prompts. Keep these prompts out of the note and do not represent a possible test, examination, or consultation as an actual order or plan. If no such consideration is needed, return only the note. Do not include any other preface, warning, citation, source summary, explanation, or closing remark.
 
 ### Review mode
 
-Return the completed note first. Then add:
-
-`Review flags`
+Return the completed note first. Then add the same outside-record section with a more complete set of flags. Do not use `Review flags` inside the medical record.
 
 List only:
 
-- essential missing fields that prevent an accurate statement or complete required section;
+- essential missing fields that prevent an accurate statement or complete required section, with a neutral prompt to confirm the information or consider whether focused examination, laboratory testing, imaging, monitoring, or consultation is clinically indicated;
 - material conflicts between supplied records;
 - ambiguous dates, times, units, medication details, attribution, problem numbering, or procedure details;
 - output statements that require physician verification;
 - a possible institutional timing issue only when supplied timestamps demonstrate it.
 
-Do not propose new diagnoses, tests, treatments, or procedures in Review flags.
+Do not present a new diagnosis, test, treatment, or procedure as decided or ordered. Possible further evaluation may appear only as a question or consideration for the physician and only when relevant to an actual gap in the supplied case.
 
 ## Routing quality check
 
@@ -82,6 +81,6 @@ Before responding, confirm internally that:
 1. the correct note type, subtype, and mode were selected;
 2. all clinical content is traceable to the supplied records;
 3. no information from another patient, task, or unrelated case was used;
-4. dates, units, uncertainty, problem numbering, and medication or procedure details remain faithful to the source;
+4. dates, uncertainty, problem numbering, and medication or procedure details remain faithful to the source, and every included measured value retains its supplied unit;
 5. the output follows the routed skill's required structure;
-6. Copy mode contains nothing except the copy-ready note.
+6. no missing-data filler appears inside the note, and any physician consideration is clearly separated outside the medical record.

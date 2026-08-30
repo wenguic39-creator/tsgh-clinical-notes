@@ -1,6 +1,6 @@
 {
   "name": "tsgh-clinical-notes",
-  "version": "0.1.0+codex.20260825135049",
+  "version": "0.1.0+codex.20260830074529",
   "description": "Personal TSGH-aligned inpatient clinical documentation workflows.",
   "author": {
     "name": "Personal clinical documentation tools"

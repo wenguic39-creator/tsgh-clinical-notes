@@ -10,7 +10,8 @@ Create a concise English Progress Note for clinician review. Use POMR and per-pr
 ## Safety and source rules
 
 - Use only records the requester is authorized to handle and only supplied information.
-- Preserve exact dates, times, values, units, medication names, doses, routes, frequencies, and problem numbers.
+- Preserve exact dates, times, values, medication names, doses, routes, frequencies, and problem numbers. Keep every supplied unit directly beside its measured value; never drop, convert, or guess a unit.
+- Omit missing content from the note rather than writing `Not provided`, `None provided`, `Plan not provided`, or a bracketed placeholder. Put clinically relevant gaps and possible further-evaluation prompts only in a clearly separated `Physician considerations — outside the medical record` section after the note.
 - Do not invent or infer symptoms, examinations, diagnoses, trends, treatment responses, plans, or a normal finding.
 - Do not independently recommend tests, medications, procedures, dose changes, disposition, or follow-up.
 - Distinguish patient-reported information, objective data, and clinician assessment. Flag conflicts rather than silently reconciling them.
@@ -18,8 +19,8 @@ Create a concise English Progress Note for clinician review. Use POMR and per-pr
 
 ## Output modes
 
-- Default to **Copy mode**: output only the completed Progress Note without a warning, preface, explanation, citation, or review commentary.
-- Use **Review mode** only when requested: output the note, followed by `Review flags` for essential omissions, material conflicts, ambiguous dates/units/attribution, inconsistent problem numbering, and statements requiring verification.
+- Default to **Copy mode**: output the completed Progress Note first. Append an outside-record physician-considerations section only when a clinically relevant gap, conflict, or ambiguous unit needs attention.
+- Use **Review mode** only when requested: output the note, followed by the same clearly separated outside-record section for essential omissions, material conflicts, ambiguous dates/units/attribution, inconsistent problem numbering, and statements requiring verification.
 
 ## Reference-format handling
 
@@ -89,7 +90,7 @@ In this variant:
 - `A:` the clinician's analysis of the problem's present status, response, cause, differential, or unresolved issue. Assessment is not merely a repeated diagnosis. Preserve terms such as `possible`, `cannot rule out`, `improving`, `worsening`, `unchanged`, and `resolved` only when documented.
 - `P:` clinician-authorized next actions. Organize documented actions as diagnostic, therapeutic, educational/informed, consultation, follow-up, monitoring, or disposition plans when useful.
 
-If the source provides no subjective information for a problem, use `S: None provided.` Do not transform missing data into `no complaint`. Apply the same principle to other SOAP fields. A missing plan may be written as `P: Plan not provided in the source material.`
+If the source provides no subjective information for a problem, do not transform silence into `no complaint` and do not insert missing-data filler. Omit the empty SOAP field when the established format permits; otherwise retain the label with no fabricated content and flag an essential gap outside the medical record. Apply the same principle to `O:`, `A:`, and `P:`. A possible further examination, laboratory test, imaging study, monitoring step, or consultation may appear only as a neutral physician consideration outside the note, never as an ordered plan unless documented.
 
 ## Workflow
 
