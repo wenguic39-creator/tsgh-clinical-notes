@@ -1,4 +1,4 @@
 interface:
   display_name: "Clinical Note"
-  short_description: "Route inpatient data into TSGH-aligned notes"
-  default_prompt: "Use $clinical-note in Copy mode to generate the requested TSGH-aligned English clinical note from the supplied records."
+  short_description: "Route inpatient data into notes or holistic care"
+  default_prompt: "Use $clinical-note to draft the requested TSGH-aligned clinical note or Chinese B/P/Sc/Sp/E/P/D holistic-care assessment from the supplied records."

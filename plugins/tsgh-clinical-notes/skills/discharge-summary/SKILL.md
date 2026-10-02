@@ -105,3 +105,8 @@ List only documented follow-up appointments or tests, diet, activity, wound/devi
 ## Final check
 
 Confirm internally that admission and discharge diagnoses are distinguished; the course explains major management and outcomes without unsupported causality; complications and discharge condition are not assumed; final medications and instructions come from the discharge plan; and every statement is traceable to the supplied record.
+
+
+## Maintenance
+
+When asked to modify this skill, resolve the tsgh-clinical-notes plugin's marketplace source and edit that authoring copy. Installed cache copies and archived standalone skills are not maintenance sources. Follow the plugin-root AGENTS.md when present.

@@ -60,3 +60,8 @@ Do not force every element into the paragraph. Omit unsupported details rather t
 ## Final check
 
 Confirm internally that every finding, diagnosis, intervention, response, complication, and future action is traceable to the supplied information; chronology is accurate; supported trends have multiple time points; and the final answer is exactly one paragraph in Copy mode.
+
+
+## Maintenance
+
+When asked to modify this skill, resolve the tsgh-clinical-notes plugin's marketplace source and edit that authoring copy. Installed cache copies and archived standalone skills are not maintenance sources. Follow the plugin-root AGENTS.md when present.

@@ -1,4 +1,4 @@
 interface:
   display_name: "Progress Note"
-  short_description: "Draft TSGH-aligned problem-oriented progress notes"
-  default_prompt: "Use $progress-note to draft a TSGH-aligned problem-oriented English Progress Note from the supplied facts."
+  short_description: "Draft TSGH-aligned SOAP and progress notes"
+  default_prompt: "Use $progress-note to draft a TSGH-aligned English SOAP Progress Note from the supplied facts."

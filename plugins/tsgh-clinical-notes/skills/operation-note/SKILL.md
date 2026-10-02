@@ -125,3 +125,8 @@ Retain supplied author/operator identity. Otherwise leave `[surgeon signature]` 
 ## Final check
 
 Confirm internally that laterality and procedure names are consistent; preoperative and postoperative diagnoses are independently sourced; critical steps, specimens, implants, blood loss, complications, closure, and destination are not assumed; and every operative statement is traceable to the supplied record.
+
+
+## Maintenance
+
+When asked to modify this skill, resolve the tsgh-clinical-notes plugin's marketplace source and edit that authoring copy. Installed cache copies and archived standalone skills are not maintenance sources. Follow the plugin-root AGENTS.md when present.
