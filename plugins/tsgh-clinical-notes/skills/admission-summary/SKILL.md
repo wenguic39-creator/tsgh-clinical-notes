@@ -15,7 +15,9 @@ Create either a three-section Acceptance/Admission Summary or a full Admission N
 - Never write `Not provided`, `None provided`, an invented normal/negative statement, or a filler plan inside the medical record when source data are absent. Do not use bracketed placeholders for missing patient facts.
 - Keep missing clinically relevant information and possible follow-up evaluation outside the medical record, as described under **Outside-record physician considerations**.
 - Do not turn an outside-record consideration into an order or documented plan. Organize only clinician-documented impressions and plans inside the note.
-- Keep data local and treat every result as requiring clinician review and sign-off.
+- Process supplied records only within the current authorized ChatGPT or Codex session. Do not send clinical source data to web search, connectors, external plugins, MCP servers, or other services. Loading this plugin's bundled skills and references is allowed.
+- ChatGPT on the web may process records in the cloud; do not claim on-device-only processing. Use only data permitted by the requester's institutional policy for the selected host.
+- Treat every result as requiring clinician review and sign-off.
 
 ## Choose the format
 

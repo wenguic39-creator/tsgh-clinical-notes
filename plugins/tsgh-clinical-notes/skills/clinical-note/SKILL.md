@@ -15,7 +15,8 @@ Provide one entry point for the installed inpatient documentation skills and the
 - Never place `Not provided`, `None provided`, `Plan not provided`, bracketed missing-data placeholders, or equivalent filler inside a medical record. Omit the missing content or leave a required local-form field blank, and place any clinically relevant gap in the outside-record physician section.
 - Distinguish patient-reported information, observed facts, test results, and clinician-authored assessment or plans.
 - Treat every result as a draft requiring physician review and sign-off, without adding that warning to Copy mode output.
-- Keep source data local. Do not use web search, plugins, connectors, or remote services while processing a clinical note.
+- Process supplied records only within the current authorized ChatGPT or Codex session. Do not send clinical source data to web search, connectors, external plugins, MCP servers, or other services. Loading this plugin's bundled skills and references is allowed.
+- ChatGPT on the web may process records in the cloud; do not claim on-device-only processing. Use only data permitted by the requester's institutional policy for the selected host.
 
 ## Input handling
 
