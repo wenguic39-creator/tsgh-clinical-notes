@@ -2,8 +2,9 @@
 
 This plugin is the single authoring source for clinical-note, admission-summary,
 progress-note, weekly-summary, discharge-summary, and operation-note.
-For this personal installation, the marketplace source is
-`C:\Users\USER\plugins\tsgh-clinical-notes`.
+For this repository, the authoring source is `plugins/tsgh-clinical-notes`.
+The root `plugin.json` is canonical; keep the compatibility manifest at
+`.codex-plugin/plugin.json` synchronized. Preserve the six independent skills.
 
 - Make requested changes in this source tree. Do not edit installed files under
   `.codex/plugins/cache`, restore archived standalone skills as active copies, or
@@ -17,13 +18,23 @@ For this personal installation, the marketplace source is
   Validate changed skills with the installed skill-creator validator and validate
   the plugin with the installed plugin-creator validator. Test relevant behavior
   when clinical drafting instructions change, using synthetic/de-identified data.
-- Follow plugin-creator's local update flow: validate the personal marketplace name,
-  update the manifest with its cachebuster helper, reinstall
-  `tsgh-clinical-notes@personal`, and verify installed files match this source.
-  Preserve the marketplace entry and unrelated configuration.
+- For repository changes, validate and export with `scripts/package_plugin.py`
+  from the repository root. Use the installed skill validator for changed skills;
+  use a plugin-creator validator if available, otherwise document the structural
+  check and verify the package with the target host.
+- For a local installation, resolve its actual marketplace source and use the
+  supported local update/reinstall flow. Preserve its marketplace name and
+  unrelated configuration; do not assume another user's Windows path.
+- For an editable private account plugin, inspect its current release and use a
+  guarded account update. For GitHub-managed workspace plugins, update the owning
+  repository and sync through workspace administration. Keep ownership and sharing.
 - New tasks are the pickup boundary after reinstall. Existing tasks may retain
   earlier skill context; do not claim they have refreshed automatically.
 - Local maintenance does not authorize pushing to GitHub, publishing a plugin,
   or sending clinical data to external services.
+- An explicit request to change the GitHub plugin authorizes repository edits and
+  a reviewable pull request. Public directory submission and changes to sharing
+  need their own authorization. Cloud drafting must use only records permitted
+  for the selected host; never describe web Work as on-device-only processing.
 
 See MAINTENANCE.md for the source decision and archive location.

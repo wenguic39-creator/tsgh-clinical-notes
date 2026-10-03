@@ -14,7 +14,9 @@ Create one comprehensive but concise English paragraph summarizing the inpatient
 - Do not independently recommend tests, medications, procedures, dose changes, disposition, or follow-up.
 - Preserve important dates, values, medication and procedure details, problem numbering when relevant, uncertainty, and conflicts. Keep every supplied unit directly beside its measured value; never drop, convert, or guess a unit.
 - Distinguish an intervention from its indication and a temporal sequence from a proven causal relationship.
-- Keep data local and treat the result as requiring physician review and sign-off.
+- Process supplied records only within the current authorized ChatGPT or Codex session. Do not send clinical source data to web search, connectors, external plugins, MCP servers, or other services. Loading this plugin's bundled skills and references is allowed.
+- ChatGPT on the web may process records in the cloud; do not claim on-device-only processing. Use only data permitted by the requester's institutional policy for the selected host.
+- Treat the result as requiring physician review and sign-off.
 
 ## Output modes
 

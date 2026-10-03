@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "tsgh-clinical-notes",
+  "version": "0.1.2",
+  "description": "Personal TSGH-aligned inpatient clinical documentation and holistic-care assessment workflows.",
+  "author": {
+    "name": "Personal clinical documentation tools"
+  },
+  "repository": "https://github.com/wenguic39-creator/tsgh-clinical-notes",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "TSGH Clinical Notes",
+        "shortDescription": "TSGH病歷與全人照護評估",
+        "longDescription": "A personal, instruction-only plugin that bundles TSGH-aligned admission, progress, weekly, discharge, and operation-note workflows plus a Chinese B/P/Sc/Sp/E/P/D holistic-care assessment template. Use only with authorized, minimum-necessary clinical information and clinician review.",
+        "developerName": "Personal clinical documentation tools",
+        "category": "Productivity",
+        "capabilities": [
+          "Write"
+        ],
+        "brandColor": "#062D57",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/logo.png",
+        "defaultPrompt": [
+          "Draft an admission note from these supplied facts.",
+          "Draft a SOAP progress note.",
+          "Draft a discharge summary or a Chinese B/P/Sc/Sp/E/P/D holistic-care assessment from these supplied records, according to my requested note type."
+        ]
+      }
+    }
+  }
+}
