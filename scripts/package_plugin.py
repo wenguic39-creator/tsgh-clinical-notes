@@ -64,7 +64,9 @@ def validate(root=PLUGIN):
                 continue
             target = (source.parent / link.split("#", 1)[0]).resolve()
             require(target.is_relative_to(root) and target.is_file(), f"Broken or escaping reference: {skill}: {link}")
-    files = sorted(p for p in root.rglob("*") if p.is_file())
+    # Windows Path sorting ignores case; use portable names for identical ordering.
+    files = sorted((p for p in root.rglob("*") if p.is_file()),
+                   key=lambda p: p.relative_to(root).as_posix())
     require(not any(p.is_symlink() for p in root.rglob("*")), "Symlinks cannot be packaged")
     require(not any(p.name.startswith(".env") or p.name in {".git", "node_modules", "__pycache__"} for p in root.rglob("*")), "Unexpected development files")
     return manifest, files
@@ -79,6 +81,7 @@ def package(output_dir):
     with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as bundle:
         for source in files:
             entry = zipfile.ZipInfo(source.relative_to(PLUGIN.parent).as_posix(), (2026, 1, 1, 0, 0, 0))
+            entry.create_system = 3  # Fixed Unix metadata even when built on Windows.
             entry.compress_type = zipfile.ZIP_DEFLATED
             entry.external_attr = 0o100644 << 16
             bundle.writestr(entry, source.read_bytes())
@@ -88,7 +91,8 @@ def package(output_dir):
         for source in files:
             require(bundle.read(source.relative_to(PLUGIN.parent).as_posix()) == source.read_bytes(), "Archive content differs")
     digest = hashlib.sha256(archive.read_bytes()).hexdigest()
-    (output_dir / "SHA256SUMS").write_text(f"{digest}  {archive.name}\n", encoding="utf-8")
+    with (output_dir / "SHA256SUMS").open("w", encoding="utf-8", newline="\n") as checksum:
+        checksum.write(f"{digest}  {archive.name}\n")
     return archive
 
 
