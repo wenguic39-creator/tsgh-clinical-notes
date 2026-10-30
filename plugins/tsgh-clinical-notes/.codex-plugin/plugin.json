@@ -1,14 +1,7 @@
 {
-  "name": "tsgh-clinical-notes",
-  "version": "0.1.2",
-  "description": "Personal TSGH-aligned inpatient clinical documentation and holistic-care assessment workflows.",
-  "author": {
-    "name": "Personal clinical documentation tools"
-  },
-  "skills": "./skills/",
   "interface": {
     "displayName": "TSGH Clinical Notes",
-    "shortDescription": "TSGH病歷與全人照護評估",
+    "shortDescription": "TSGH\u75c5\u6b77\u8207\u5168\u4eba\u7167\u8b77\u8a55\u4f30",
     "longDescription": "A personal, instruction-only plugin that bundles TSGH-aligned admission, progress, weekly, discharge, and operation-note workflows plus a Chinese B/P/Sc/Sp/E/P/D holistic-care assessment template. Use only with authorized, minimum-necessary clinical information and clinician review.",
     "developerName": "Personal clinical documentation tools",
     "category": "Productivity",
@@ -23,5 +16,14 @@
       "Draft a SOAP progress note.",
       "Draft a discharge summary or a Chinese B/P/Sc/Sp/E/P/D holistic-care assessment from these supplied records, according to my requested note type."
     ]
-  }
+  },
+  "name": "tsgh-clinical-notes",
+  "version": "0.1.2",
+  "description": "Personal TSGH-aligned inpatient clinical documentation and holistic-care assessment workflows.",
+  "author": {
+    "name": "Personal clinical documentation tools"
+  },
+  "keywords": [],
+  "repository": "https://github.com/wenguic39-creator/tsgh-clinical-notes",
+  "skills": "./skills"
 }

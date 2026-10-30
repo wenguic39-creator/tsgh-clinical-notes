@@ -2,6 +2,7 @@
 """Validate and export the skills-only plugin; uses Python 3.10+ standard library."""
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -86,6 +87,8 @@ def package(output_dir):
         require(bundle.testzip() is None and len(bundle.namelist()) == len(files), "Archive integrity check failed")
         for source in files:
             require(bundle.read(source.relative_to(PLUGIN.parent).as_posix()) == source.read_bytes(), "Archive content differs")
+    digest = hashlib.sha256(archive.read_bytes()).hexdigest()
+    (output_dir / "SHA256SUMS").write_text(f"{digest}  {archive.name}\n", encoding="utf-8")
     return archive
 
 

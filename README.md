@@ -1,70 +1,73 @@
 # TSGH Clinical Notes for ChatGPT and Codex
 
-TSGH-aligned clinical-documentation workflows packaged as an instruction-only Agent Plugins 1.0 plugin for ChatGPT Chat/Work on the web and desktop, and Codex. It includes six skills: a clinical-note router, Admission, Progress, Weekly, Discharge, and Operation Notes. The router also provides the Chinese B/P/Sc/Sp/E/P/D holistic-care assessment.
+TSGH 格式的住院病歷草稿外掛，版本 **0.1.2**。包含六個 skills：clinical-note（格式分流）、Admission、Progress、Weekly、Discharge、Operation；也支援中文 B/P/Sc/Sp/E/P/D 全人照護評估。
+
+**分享給同事：**先看 [中文安裝說明](安裝說明.md)，或到 [Releases 下載完整外掛 ZIP](https://github.com/wenguic39-creator/tsgh-clinical-notes/releases/latest)。GitHub 的 **Code > Download ZIP** 是整份原始碼，不能直接當作單一外掛上傳。
 
 ![TSGH Clinical Notes cover](plugins/tsgh-clinical-notes/assets/logo.png)
 
-## ChatGPT on the web
+## Choose an installation route
 
-For your own account, use Plugin Creator to save or update the plugin from the packaged ZIP. Open its returned plugin link, install it, start a new Work chat, and select `@TSGH Clinical Notes`.
+| Environment | Installation route | Requirements |
+| --- | --- | --- |
+| ChatGPT personal account | Download the release ZIP and ask Plugin Creator to save it as your own private plugin | Plugin creation must be available to the account |
+| ChatGPT managed workspace | An administrator imports this repository as a marketplace, or uploads the release ZIP | Workspace upload/import and installation permissions |
+| Codex | Register the repository marketplace, then install `tsgh-clinical-notes@tsgh-team` | A client that supports plugin marketplaces |
 
-For a ChatGPT workspace, an admin can import this GitHub marketplace from **Admin > Plugins > Add > Import marketplace**:
+This is an instruction-only package: no MCP server, API key, desktop process, or separately hosted service is required. Web use does not require the author's computer to be online. Availability in ChatGPT web, desktop, and mobile depends on the account, workspace, and product surface; each surface has not been independently tested. A GitHub link alone does not install the plugin or grant access to the author's private copy. This repository is not an OpenAI public-directory listing.
+
+### Personal ChatGPT account
+
+Download `tsgh-clinical-notes-0.1.2.zip` from Releases. In an account with Plugin Creator available, attach the ZIP and ask:
+
+> Save this tsgh-clinical-notes package as my private plugin. Preserve all six skills, references, and assets. If an editable copy already exists, verify its identity and update it without changing its sharing.
+
+Open the returned plugin link and install if prompted. Start a new supported chat, select `@TSGH Clinical Notes`, and supply the note type and permitted source facts. If creation is unavailable, check the account's permissions; cloning the repository will not enable it.
+
+### Managed ChatGPT workspace
+
+An administrator opens **Admin Console > Plugins > Add > Import marketplace**:
 
 - Source: `https://github.com/wenguic39-creator/tsgh-clinical-notes`
-- Path: leave empty (the marketplace is at the repository root)
-- Branch: `main`, or the specific branch you want to test
+- Path: empty; the repository contains `.agents/plugins/marketplace.json`
+- Branch: `main` for updates, or `v0.1.2` to pin the release
 
-Members install the imported plugin from their workspace's Plugins directory, then invoke it in a new chat with an `@` mention. Creation/import availability depends on workspace permissions. A local Codex marketplace installation and a ChatGPT account installation are separate; cloning this repository alone does not install it on the web.
+Review import results and workspace installation settings. Members then install the plugin from the workspace directory. GitHub-managed copies can receive updates through marketplace sync; manually uploaded personal copies need a separate update.
 
-This skills-only package needs no MCP server, hosting, API key, or desktop hooks. Public universal-directory publication is a separate review process; this repository is not itself a public directory listing.
+### Codex
 
-## Codex installation
-
-Clone or download this repository, then run:
+Clone or download the **whole repository**, then register its marketplace:
 
 ```powershell
 codex plugin marketplace add "<full path to this repository>"
 codex plugin add tsgh-clinical-notes@tsgh-team
 ```
 
-Open a new Codex task after installation.
+Start a new task after installation. These are Codex CLI commands, not commands to paste into an ordinary ChatGPT conversation. If the installed client has different commands, consult `codex plugin --help`.
 
-## Build an installable ZIP
+## Try it
 
-From this repository, with Python 3.10 or later:
+Select the installed plugin and ask for a `SOAP progress note`, an `Admission Note`, or a `全人照護評估`, followed by authorized source facts. Ordinary SOAP stays non-POMR; numbered problems require an explicit request. Review every draft before use.
+
+## Build and release
+
+Python 3.10+; no third-party packages are needed:
 
 ```powershell
+python scripts/package_plugin.py --check
 python scripts/package_plugin.py
 ```
 
-This validates the portable and compatibility manifests, all six skills, assets, and relative references, then writes `dist/tsgh-clinical-notes-0.1.2.zip`. It includes the hidden `.codex-plugin/plugin.json`. Use `--check` to validate without exporting. The script checks package structure and content; host installation and drafting still need a separate smoke test.
+The deterministic build validates manifests, six skills, assets, and relative references. It exports `dist/tsgh-clinical-notes-0.1.2.zip` and `dist/SHA256SUMS`, including hidden compatibility files. It does not prove successful installation or clinical drafting in every host.
 
-GitHub Actions also builds the ZIP on pull requests, pushes to `main`, and manual runs. Download the `tsgh-clinical-notes-plugin` artifact and unpack the Actions artifact once to get the plugin ZIP inside. GitHub's **Download ZIP** is a repository snapshot, not this single-plugin upload package.
+GitHub Actions validates pull requests and builds artifacts. After a merge to `main`, it publishes a missing version as a GitHub Release with the ZIP, checksum, and matching notes from `releases/v<version>.md`. Existing releases are left intact. For future releases, synchronize both manifests, add release notes, and review the changes before merging.
 
-## Package layout
+## Data handling
 
-```text
-.agents/plugins/marketplace.json       # Existing tsgh-team marketplace
-plugins/tsgh-clinical-notes/
-  plugin.json                         # Portable manifest; canonical metadata
-  .codex-plugin/plugin.json           # Synchronized compatibility manifest
-  skills/                             # Six skills plus bundled references
-  assets/                             # Existing logos
-scripts/package_plugin.py             # Validation and export
-```
+Use only authorized, minimum-necessary clinical data. Do not put patient records or identifiers in public issues, pull requests, or repository files. Web processing may occur in the cloud; follow institutional policy for the selected host. All output requires clinician review. The existing artwork contains Tri-Service General Hospital identity elements; verify authorization before reusing those elements.
 
-## Official documentation
+## Official references
 
+- [Plugins in ChatGPT](https://help.openai.com/en/articles/20001256)
+- [GitHub marketplace import and sync](https://help.openai.com/en/articles/20001504-importing-and-syncing-plugin-marketplaces-from-github)
 - [Plugin packaging](https://developers.openai.com/plugins/build/plugins)
-- [ChatGPT plugin installation](https://learn.chatgpt.com/docs/plugins)
-- [GitHub workspace import and sync](https://learn.chatgpt.com/docs/enterprise/plugin-management)
-
-## Clinical safety
-
-- Use only authorized, minimum-necessary, and appropriately de-identified clinical information.
-- Do not place patient names, national identifiers, medical-record numbers, or other identifying information in public tasks.
-- Every generated note is a draft and requires review by a qualified clinician before entry into the medical record.
-- Web Work can process supplied records in the cloud. Use only information your institutional policy permits for the selected host. The plugin does not send records to an additional clinical service, web search, or connector; it cannot make the host's processing on-device-only.
-- The cover includes Tri-Service General Hospital identity elements. Confirm institutional brand authorization before redistribution or reuse outside the intended setting.
-
-完整中文說明請見 [安裝說明.md](安裝說明.md)。

@@ -9,18 +9,64 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: plugin-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   package:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.metadata.outputs.version }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: Validate and build the plugin ZIP
         run: python scripts/package_plugin.py
+      - name: Read release version
+        id: metadata
+        shell: bash
+        run: |
+          version=$(python -c "import json; print(json.load(open('plugins/tsgh-clinical-notes/plugin.json'))['version'])")
+          echo "version=$version" >> "$GITHUB_OUTPUT"
       - uses: actions/upload-artifact@v4
         with:
           name: tsgh-clinical-notes-plugin
-          path: dist/*.zip
+          path: |
+            dist/*.zip
+            dist/SHA256SUMS
           if-no-files-found: error
+
+  release:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: package
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Publish a missing version with verified build assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.package.outputs.version }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          tag="v$VERSION"
+          if gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Release $tag already exists; leaving it intact."
+            exit 0
+          fi
+          test -f "releases/$tag.md"
+          gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name tsgh-clinical-notes-plugin --dir dist
+          (cd dist && sha256sum --check SHA256SUMS)
+          gh release create "$tag" "dist/tsgh-clinical-notes-$VERSION.zip" dist/SHA256SUMS \
+            --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+            --title "TSGH Clinical Notes $tag" --notes-file "releases/$tag.md"
