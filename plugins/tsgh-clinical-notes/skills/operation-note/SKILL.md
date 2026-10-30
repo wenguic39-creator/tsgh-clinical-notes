@@ -15,7 +15,9 @@ Create a complete, concise English Operation Note that reflects what actually oc
 - Never write `Not provided`, `None provided`, or a missing-data placeholder inside the operative record. Keep missing critical elements and possible verification or further-evaluation prompts in a clearly separated `Physician considerations — outside the medical record` section after the note.
 - Distinguish preoperative diagnosis, postoperative diagnosis, indication, findings, and procedure. Do not make them interchangeable.
 - Do not independently recommend operative technique, antibiotics, thromboprophylaxis, drains, monitoring, or postoperative care.
-- Keep data local and treat the result as requiring surgeon review and sign-off.
+- Process supplied records only within the current authorized ChatGPT or Codex session. Do not send clinical source data to web search, connectors, external plugins, MCP servers, or other services. Loading this plugin's bundled skills and references is allowed.
+- ChatGPT on the web may process records in the cloud; do not claim on-device-only processing. Use only data permitted by the requester's institutional policy for the selected host.
+- Treat the result as requiring surgeon review and sign-off.
 
 ## Output modes
 

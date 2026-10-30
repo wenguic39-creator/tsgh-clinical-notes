@@ -1,5 +1,24 @@
 # 病歷 skills 維護來源
 
+## 2026-10-03：GitHub 與 ChatGPT 套件
+
+本 repository 的維護來源是 `plugins/tsgh-clinical-notes`；根目錄 `plugin.json`
+使用 Agent Plugins 1.0，`.codex-plugin/plugin.json` 保留 Codex 相容格式。
+兩者版本與展示設定必須一致。
+
+0.1.2 以既有私人帳號 0.1.1 的通用 manifest 為基礎；檢查時帳號版與
+GitHub 版的全部 skills 和參考檔文字一致。保留六個 skills、病歷格式與
+臨床事實規則，只將執行環境說明改為適用於獲准的 ChatGPT／Codex session。
+網頁版可在雲端執行，不承諾資料只在本機處理；不追加搜尋或外部服務。
+
+從 repository 根目錄執行 `python scripts/package_plugin.py` 驗證並產生
+`dist/tsgh-clinical-notes-0.1.2.zip`，包含隱藏的相容 manifest 與既有資產。
+GitHub marketplace 保持 `tsgh-team` 名稱。個人帳號更新與 GitHub 工作區
+同步是不同的發佈路徑；GitHub push 本身不會更新手動上傳的私人外掛。
+完整安裝與驗證說明見 repository 根目錄 `安裝說明.md`。
+
+## 2026-09-06：本機来源整理歷史
+
 統一日期：2026-09-06。
 
 唯一維護來源：`C:\Users\USER\plugins\tsgh-clinical-notes`。
