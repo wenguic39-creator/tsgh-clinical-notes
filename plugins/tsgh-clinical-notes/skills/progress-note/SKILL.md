@@ -5,7 +5,7 @@ description: Draft TSGH-aligned English inpatient Progress Notes from clinician-
 
 # Progress Note
 
-Create a concise English Progress Note for clinician review. By default, produce one conventional daily SOAP entry with global `S/O/A/P` sections and no POMR problem numbers or problem-oriented subdivision. Use POMR only when the requester explicitly asks for `POMR`, a `problem-oriented` note, a numbered problem list, or explicitly asks to follow a supplied POMR format. Do not infer a POMR request merely because the source contains multiple diagnoses or problems. Use per-problem SOAP only when the requester explicitly asks for it. When the requester provides a predecessor note, senior's note, or institutional example, preserve its useful local conventions while applying the current request and the source and safety rules below.
+Create a concise English Progress Note for clinician review. By default, produce one daily entry in the order date, one `Problem:` heading, and one global `S/O/A/P` sequence. Keep `S:` to one sentence, group concise objective data under descriptive headings, and leave `A:` and `P:` unnumbered unless POMR is explicitly requested. Use POMR only when the requester explicitly asks for `POMR`, a `problem-oriented` note, a numbered problem list, or explicitly asks to follow a supplied POMR format. Do not infer a POMR request from a source `Problem:` heading, existing source numbering, multiple diagnoses, or pasted POMR content. A request to match layout alone does not activate POMR. Use per-problem SOAP only when the requester explicitly asks for it. When the requester provides a predecessor note, senior's note, or institutional example, preserve its useful local conventions while applying the current request and the source and safety rules below.
 
 ## Safety and source rules
 
@@ -37,6 +37,17 @@ When a prior note is supplied as a formatting reference:
 5. Use the reference as a structural model, not as permission to reproduce its classification errors, unsupported interpretations, misspellings, or data from another encounter.
 6. When later nursing data are added, update the current observations in `O:` and place only explicit new orders or authorized actions in `P:`. Do not revise `A:` solely because a nursing observation was added unless the requester or supplied clinician documentation provides the corresponding assessment.
 
+## Default single-entry ward SOAP
+
+- Produce one entry per requested date, even when several diagnoses or source notes are supplied. Do not output alternative versions or separate SOAP entries unless explicitly requested.
+- Use exactly one `Problem:` heading. If the requester supplies a Problem, preserve its wording, uncertainty, and any existing identifier; do not regenerate, paraphrase, or replace it. If several source Problems appear, use the requester-selected Problem, or the latest clinician-designated primary Problem when unambiguous; never concatenate unrelated Problems into an invented diagnosis. Flag an unresolved selection outside the note.
+- Generate a Problem only when no Problem was supplied, summarizing the documented principal diagnosis, admission reason, or focus of today's clinician-documented management. Reuse source terminology and uncertainty; do not infer a new diagnosis or invent a problem number. If no supported main problem can be identified, leave the required heading blank and flag the gap outside the note.
+- An inherited identifier on the single `Problem:` line is an EMR label, not permission to number `A:` and `P:` or start a longitudinal POMR index.
+- Keep `S:` to one concise sentence of supplied patient/family-reported interval symptoms and important documented negatives. Do not convert a measured overnight fever or other objective event into a patient complaint; put it in `O:`. If no subjective information is supplied, retain an empty `S:` without inventing `No complaints`.
+- Organize `O:` under bracketed headings such as `[Vital signs]`, `[Physical examination]` or `[General condition]`, `[Wound and stoma]`, `[Intake and output]`, `[Nutrition]`, `[Laboratory data]`, `[Imaging]`, and `[Microbiology]`. Use only headings supported by available data and omit empty categories. Keep important values, units, event times, and result dates; do not replace documented abnormalities with vague statements such as `stable` or `normal`.
+- Keep `A:` as concise `*.` items describing clinician-documented problems and their current status or interpretation. Keep `P:` as concise `*.` action items covering only documented treatment, investigations, consultation, follow-up, and monitoring. Several relevant conditions may appear in the same global assessment without creating multiple SOAP entries.
+- Use clinician documentation for diagnoses, assessment, and management decisions. Nursing observations may update objective findings; do not silently let a nursing plan override a clinician's plan. Preserve temporal changes and flag unresolved contradictions outside the note.
+
 ## Explicit single-entry EMR POMR mode
 
 Use this hybrid format only when the requester explicitly asks for POMR or a problem-oriented note and one daily SOAP entry is linked to one EMR problem:
@@ -51,8 +62,10 @@ Use this hybrid format only when the requester explicitly asks for POMR or a pro
 Use this copy-ready structure:
 
 ```text
+Problem: [Supplied Problem, or source-supported main problem only when absent]
+
 S:
-*. [Supplied interval history]
+[One sentence of supplied subjective interval information]
 
 O:
 *. [Supplied objective finding]
@@ -71,9 +84,10 @@ P:
 Use this compact variant when the requester asks to follow an RCC/ICU predecessor note or supplies a similar senior-authored example:
 
 ```text
+Problem: [Supplied Problem, or source-supported main problem only when absent]
+
 S:
-*. [Patient-reported information or why it cannot be obtained]
-*. [Concise interval history and relevant documented negatives]
+[One concise sentence of supplied subjective information, or documented inability to obtain it]
 
 O:
 *. [Vital sign]
@@ -98,7 +112,7 @@ Keep the note global: use one `S/O/A/P` sequence and organize `O:` by systems. I
 
 In this variant:
 
-- A noncommunicative patient's `S:` should state that subjective information could not be obtained. A short interval history may follow when its source or attribution is clear.
+- When the source documents an inability to obtain subjective information, state that in the single `S:` sentence. Put observed interval events in `O:`; do not infer inability from silence.
 - `O:` may be dense, but do not duplicate the same GCS, ventilator setting, culture, image, or laboratory value under multiple headings.
 - `A:` should distinguish an active condition from a historical or resolved complication when the supplied clinician documentation does so.
 - `P:` should remain concise and action-oriented. Preserve exact medication changes, support settings, treatment dates, and monitoring schedules; do not add a rationale or endpoint that was not supplied.
@@ -128,7 +142,7 @@ If the source provides no subjective information for a problem, do not transform
 
 1. Identify note date/time, hospital day, author role, and supplied medical-condition descriptor.
 2. Determine whether POMR was explicitly requested. A request for `SOAP` alone means conventional, non-POMR SOAP.
-3. For conventional SOAP, select the supplied information needed for today's global `S/O/A/P` without creating problem numbers or a problem list. For explicit POMR, reconstruct or preserve the problem list and select active or changed problems for today's note.
+3. Preserve the supplied Problem; generate a supported main Problem only when it is absent. For conventional SOAP, select today's information for one global `S/O/A/P` without creating problem numbers or a problem list. For explicit POMR, reconstruct or preserve the problem list and select active or changed problems for today's note.
 4. Build one global `S/O/A/P` by default. Use problem-oriented `A/P` or separate S/O/A/P blocks under each problem only when explicitly requested. Do not place a clinician interpretation under Objective or raw data alone under Assessment.
 5. Remove repetition while retaining evidence needed for today's assessment and plan.
 
@@ -140,29 +154,34 @@ Use this format unless the requester specifies another:
 
 Write `Date: YYYY/MM/DD` and `Hospital day: [number]` only when supplied. Include the note time or author role only when provided and requested.
 
-### Medical Condition
+### Problem and SOAP
 
-Use a supplied descriptor such as `good`, `fair`, `serious`, or `critical`, and a supplied trajectory such as `improving`, `worsening`, or `unchanged`. Omit this heading if neither is documented.
+Use one `Problem:` heading and one global `S/O/A/P` sequence. The bracketed content below illustrates fields, not missing-data placeholders to print in a real note. Omit objective categories without source data and add other supported categories as needed.
 
-### SOAP
+```text
+Problem: [Preserved supplied Problem; generate only when absent]
 
-Use one conventional global `S/O/A/P` without POMR numbering:
+S:
+[One concise sentence of supplied subjective interval information]
 
-`S:`
+O:
+[Vital signs]
+*. [Supplied values with units and relevant times]
 
-`*. [supplied subjective information]`
+[Physical examination]
+*. [Documented findings]
 
-`O:`
+[Laboratory data]
+*. [Dated relevant results with units]
 
-`*. [supplied objective information]`
+A:
+*. [Documented diagnosis and current assessment/status]
 
-`A:`
+P:
+*. [Documented action]
+```
 
-`*. [supplied clinician assessment/current status]`
-
-`P:`
-
-`*. [documented plan]`
+Include a supplied medical-condition descriptor under `[General condition]` in `O:` or its clinician interpretation in `A:`, according to the source; do not add a separate default heading.
 
 Do not make the `A:` list function as a numbered problem list in ordinary SOAP mode. If POMR is explicitly requested, use the explicit POMR structure above, preserve established problem numbers and documented status, and omit unchanged inactive or resolved problems unless they remain relevant to today's care. When the requester explicitly asks for DAP or PAP, map the supplied content without adding POMR numbering unless POMR was also explicitly requested.
 
@@ -177,9 +196,10 @@ Do not make the `A:` list function as a numbered problem list in ordinary SOAP m
 
 ## Final check
 
-Confirm internally that one SOAP entry was produced when requested; an ordinary SOAP request uses conventional global, unnumbered `S/O/A/P`; POMR appears only after an explicit POMR or problem-oriented request; when POMR is used, problem numbers remain stable and match between `A:` and `P:`; every generated list item begins with `*.`; no record-source scaffolding appears in the copy-ready note; every S/O/A/P statement is in the correct category and traceable to the supplied record; the assessment adds the documented interpretation rather than repeating the diagnosis; and no action, trend, normal finding, or problem status was invented.
+Confirm internally that each requested date has exactly one Problem heading and one SOAP entry unless separate entries were explicitly requested; a supplied Problem was preserved rather than regenerated; a Problem was generated only when absent and supported by the source; S contains at most one sentence without invented symptoms; O uses concise supported category headings without losing important values, units, or dates; an ordinary SOAP request uses conventional global, unnumbered `S/O/A/P`; POMR appears only after an explicit POMR or problem-oriented request; when POMR is used, problem numbers remain stable and match between `A:` and `P:`; every generated list item begins with `*.`; no record-source scaffolding appears in the copy-ready note; every S/O/A/P statement is in the correct category and traceable to the supplied record; the assessment adds the documented interpretation rather than repeating the diagnosis; and no action, trend, normal finding, or problem status was invented.
 
 
 ## Maintenance
 
 When asked to modify this skill, resolve the tsgh-clinical-notes plugin's marketplace source and edit that authoring copy. Installed cache copies and archived standalone skills are not maintenance sources. Follow the plugin-root AGENTS.md when present.
+
