@@ -38,8 +38,8 @@ Both fields are optional when they can be inferred safely. Default to Copy mode.
 
 Honor an explicit note type. Otherwise route as follows:
 
-- **Admission or acceptance**: full admission note, initial history and physical, acceptance summary, admission summary, or a new hospitalization narrative. Read and follow `../admission-summary/SKILL.md` completely. Preserve the requester's distinction between a full Admission Note and a three-section Acceptance/Admission Summary.
-- **Progress**: progress note, daily note, today's note, SOAP, DAP, PAP, problem list update, or one-day inpatient review. Read and follow `../progress-note/SKILL.md` completely. Treat `SOAP` alone as conventional non-POMR SOAP; activate POMR only when the requester explicitly asks for POMR, a problem-oriented note, numbered problems, or explicitly requests a supplied POMR format.
+- **Admission or acceptance**: full admission note, initial history and physical, acceptance summary, admission summary, or a new hospitalization narrative. Read and follow `../admission-summary/SKILL.md` completely. Preserve the requester's distinction between a full Admission Note and a three-section Acceptance/Admission Summary. Both default to conventional non-POMR format; use numbered problems and matched plans only after an explicit POMR/problem-oriented request. Source numbering or multiple diagnoses alone do not activate POMR.
+- **Progress**: progress note, daily note, today's note, SOAP, DAP, PAP, problem list update, or one-day inpatient review. Read and follow `../progress-note/SKILL.md` completely. Use one daily entry with one Problem heading and one global S/O/A/P sequence: preserve a supplied Problem and generate it only when absent and supported by the source; keep S to one sentence and O concise under category headings. Treat `SOAP` alone as conventional non-POMR SOAP; activate POMR only when the requester explicitly asks for POMR, a problem-oriented note, numbered problems, or explicitly requests a supplied POMR format.
 - **Weekly**: weekly summary, week summary, seven-day course, or synthesis of several dated daily notes. Read and follow `../weekly-summary/SKILL.md` completely.
 - **Discharge**: discharge summary, discharge course, discharge diagnoses and instructions, or final hospitalization summary. Read and follow `../discharge-summary/SKILL.md` completely.
 - **Operation**: operation note, operative note, surgical record, procedure dictation, or post-procedure operative documentation. Read and follow `../operation-note/SKILL.md` completely.
@@ -91,9 +91,10 @@ Before responding, confirm internally that:
 6. no missing-data filler appears inside the note, and any physician consideration is clearly separated outside the medical record;
 7. admission and progress list items use `*.` consistently, and the copy-ready note contains no record-source scaffolding such as `Per nursing documentation`.
 8. a holistic-care assessment uses the complete Chinese B/P/Sc/Sp/E/P/D structure, plain headings, `*.` list items, and transparent gap statements instead of invented psychosocial facts.
-9. an ordinary SOAP request remains non-POMR, while any POMR structure or problem numbering is supported by an explicit request.
+9. ordinary SOAP, Admission Note, and Acceptance/Admission Summary remain non-POMR unless explicitly requested; an inherited identifier on a single SOAP Problem heading does not activate numbered A/P; SOAP preserves a supplied Problem, generates one only when absent and supported, uses at most one S sentence, and contains only one global SOAP sequence per requested date.
 
 
 ## Maintenance
 
 When asked to modify this skill, resolve the tsgh-clinical-notes plugin's marketplace source and edit that authoring copy. Installed cache copies and archived standalone skills are not maintenance sources. Follow the plugin-root AGENTS.md when present.
+
