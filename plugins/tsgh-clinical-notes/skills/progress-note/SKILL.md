@@ -37,6 +37,20 @@ When a prior note is supplied as a formatting reference:
 5. Use the reference as a structural model, not as permission to reproduce its classification errors, unsupported interpretations, misspellings, or data from another encounter.
 6. When later nursing data are added, update the current observations in `O:` and place only explicit new orders or authorized actions in `P:`. Do not revise `A:` solely because a nursing observation was added unless the requester or supplied clinician documentation provides the corresponding assessment.
 
+## Separate copy blocks
+
+- By default, render each requested date as one note with four separate fenced `text` code blocks, in S/O/A/P order. Put the labels `S:`, `O:`, `A:`, and `P:` immediately outside their respective blocks; put only the field content inside each block so the copy control copies that field alone. Keep the single `Problem:` heading and any supported date outside the four blocks. Four blocks remain one global SOAP entry, not four notes.
+- Apply this presentation in both Copy and Review modes and to the global ward, EMR POMR, and RCC/ICU variants. The templates below specify content and order; render their fields using these separate blocks. Keep any physician considerations after the complete note and outside all four blocks. Add no formatting explanation to the clinical output.
+- Retain an empty block for a required field without supplied content; do not fill it with a placeholder. Follow an explicit request for a combined block, plain text, field labels inside blocks, or another copying format instead. Preserve explicitly requested per-problem SOAP, DAP, or PAP structure rather than forcing it into global SOAP.
+
+## Daily updates and meaningful A/P
+
+- Anchor the note to the requested date and the supplied documentation cutoff. Prioritize current symptoms, interval events, new or pending results, documented assessment changes, and current actions. Keep dates and times on overnight events and older results that remain relevant; do not present an older value or examination as today's observation. Do not import later events into an earlier daily note.
+- When prior notes are supplied for this patient, compare them with the current source before drafting. Retain only older context needed to understand active problems or current care. Remove duplicate passages, routine unchanged detail, and repeated admission history; retain important persistent abnormalities and explicitly ongoing treatment even when their wording repeats.
+- Update each A item from current documented interpretation and its relevant evidence. Preserve documented uncertainty. Update each P item from current authorized actions, preserving medication details and whether an action is planned, ordered, ongoing, held, stopped, or completed. Include those statuses only when supplied. Distinguish a historical treatment from a current plan and a completed intervention from a future action.
+- Do not carry yesterday's examination, negative findings, assessment status, or plan forward as rechecked or continued solely because it appears in a previous note. Reuse earlier assessments or plans only when the supplied record or requester establishes that they remain applicable. Do not infer that an unmentioned treatment was continued or stopped; flag a clinically important ambiguity outside the record.
+- Reduce repetition by selecting relevant facts and incorporating actual documented changes, not by rotating synonyms, changing diagnoses, inventing improvement, or dropping essential ongoing care. Do not promise a similarity score or alter clinical meaning to bypass duplicate-text checks. When the supported assessment or plan has not changed, accurate concise repetition is acceptable; do not invent a change to make the note look new.
+
 ## Default single-entry ward SOAP
 
 - Produce one entry per requested date, even when several diagnoses or source notes are supplied. Do not output alternative versions or separate SOAP entries unless explicitly requested.
@@ -195,6 +209,8 @@ Do not make the `A:` list function as a numbered problem list in ordinary SOAP m
 - Do not add citations, explanations, or a second interpretation outside the note.
 
 ## Final check
+
+Check that the rendered note has four individually copyable field blocks per date unless another format was explicitly requested; field labels, Problem, and physician considerations stay outside those blocks. Check the requested date and cutoff, the provenance and current applicability of carried-forward facts, action status, meaningful documented A/P changes, and preservation of essential unchanged care. Reject cosmetic paraphrasing or invented changes intended only to reduce repetition.
 
 Confirm internally that each requested date has exactly one Problem heading and one SOAP entry unless separate entries were explicitly requested; a supplied Problem was preserved rather than regenerated; a Problem was generated only when absent and supported by the source; S contains at most one sentence without invented symptoms; O uses concise supported category headings without losing important values, units, or dates; an ordinary SOAP request uses conventional global, unnumbered `S/O/A/P`; POMR appears only after an explicit POMR or problem-oriented request; when POMR is used, problem numbers remain stable and match between `A:` and `P:`; every generated list item begins with `*.`; no record-source scaffolding appears in the copy-ready note; every S/O/A/P statement is in the correct category and traceable to the supplied record; the assessment adds the documented interpretation rather than repeating the diagnosis; and no action, trend, normal finding, or problem status was invented.
 
