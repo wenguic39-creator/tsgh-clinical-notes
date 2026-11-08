@@ -1,10 +1,10 @@
 # TSGH Clinical Notes maintenance
 
 This plugin is the single authoring source for clinical-note, admission-summary,
-progress-note, weekly-summary, discharge-summary, and operation-note.
+progress-note, weekly-summary, discharge-summary, operation-note, and clerk-admission-note.
 For this repository, the authoring source is `plugins/tsgh-clinical-notes`.
 The root `plugin.json` is canonical; keep the compatibility manifest at
-`.codex-plugin/plugin.json` synchronized. Preserve the six independent skills.
+`.codex-plugin/plugin.json` synchronized. Preserve the six existing independent skills and the Clerk admission entry point.
 
 - Make requested changes in this source tree. Do not edit installed files under
   `.codex/plugins/cache`, restore archived standalone skills as active copies, or
@@ -12,7 +12,7 @@ The root `plugin.json` is canonical; keep the compatibility manifest at
 - Read the affected SKILL.md and preserve existing user-approved clinical behavior
   unless the current request changes it. A source-maintenance change alone must not
   change note structure, clinical content rules, or output modes.
-- Keep the six note types as separate skills in this one plugin. Do not merge their
+- Keep the existing note types and Clerk admission entry point as separate skills in this one plugin. Do not merge their
   note formats merely to consolidate maintenance.
 - Before an update, save a dated backup outside skill-discovery directories.
   Validate changed skills with the installed skill-creator validator and validate

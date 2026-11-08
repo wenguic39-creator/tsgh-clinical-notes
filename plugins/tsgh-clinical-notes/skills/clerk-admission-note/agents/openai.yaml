@@ -1,0 +1,4 @@
+interface:
+  display_name: "Clerk admission note"
+  short_description: "Draft admission notes with bracketed headings"
+  default_prompt: "Use $clerk-admission-note to draft a TSGH-aligned Clerk admission note from the supplied facts, with every main medical-record heading in square brackets."

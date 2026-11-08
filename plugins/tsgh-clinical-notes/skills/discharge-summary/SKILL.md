@@ -15,9 +15,13 @@ Create an accurate, chronological English Discharge Summary that communicates th
 - Never write `Not provided`, `None provided`, or a missing-data placeholder inside the summary. Keep clinically relevant gaps and possible further-evaluation prompts in a clearly separated `Physician considerations — outside the medical record` section after the summary.
 - Distinguish admission diagnoses from final discharge diagnoses. Use only clinician-documented final diagnoses in the discharge list.
 - Do not independently recommend medication changes, follow-up, tests, diet, activity, wound care, or warning signs.
-- Process supplied records only within the current authorized ChatGPT or Codex session. Do not send clinical source data to web search, connectors, external plugins, MCP servers, or other services. Loading this plugin's bundled skills and references is allowed.
+- Process supplied records only within the current authorized ChatGPT or Codex session. Do not send clinical source data to web search, connectors, external plugins, MCP servers, or other services. Loading this plugin's bundled skills and references is allowed. The medication-name rule additionally permits a reference lookup containing only non-patient product-identification details; never include clinical records or patient context.
 - ChatGPT on the web may process records in the cloud; do not claim on-device-only processing. Use only data permitted by the requester's institutional policy for the selected host.
 - Treat the result as requiring physician review and sign-off.
+
+## Medication names
+
+Read and apply [Medication names](../../references/medication-names.md) for every medication in this output, including medication/allergy histories, inpatient treatments, discharge prescriptions, and holistic-care content. This authorizes only verified generic-name annotation; all other supplied-fact and privacy safeguards remain in force.
 
 ## Output modes
 
