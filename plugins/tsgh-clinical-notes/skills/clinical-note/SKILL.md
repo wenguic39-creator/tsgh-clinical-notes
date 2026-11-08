@@ -1,6 +1,6 @@
 ---
 name: clinical-note
-description: Route clinician-supplied inpatient data into a TSGH-aligned English clinical note or a Chinese B/P/Sc/Sp/E/P/D holistic-care assessment. Use for Admission, Acceptance, Progress, Weekly, Discharge, or Operation Notes, and for 全人照護評估 or whole-person care forms.
+description: Route clinician-supplied inpatient data into a TSGH-aligned English clinical note or a Chinese B/P/Sc/Sp/E/P/D holistic-care assessment. Use for Admission, Clerk admission note, Acceptance, Progress, Weekly, Discharge, or Operation Notes, and for 全人照護評估 or whole-person care forms.
 ---
 
 # Clinical Note
@@ -15,7 +15,7 @@ Provide one entry point for the installed inpatient documentation skills and the
 - Never place `Not provided`, `None provided`, `Plan not provided`, bracketed missing-data placeholders, or equivalent filler inside a medical record. Omit the missing content or leave a required local-form field blank, and place any clinically relevant gap in the outside-record physician section.
 - Distinguish patient-reported information, observed facts, test results, and clinician-authored assessment or plans.
 - Treat every result as a draft requiring physician review and sign-off, without adding that warning to Copy mode output.
-- Process supplied records only within the current authorized ChatGPT or Codex session. Do not send clinical source data to web search, connectors, external plugins, MCP servers, or other services. Loading this plugin's bundled skills and references is allowed.
+- Process supplied records only within the current authorized ChatGPT or Codex session. Do not send clinical source data to web search, connectors, external plugins, MCP servers, or other services. Loading this plugin's bundled skills and references is allowed. The medication-name rule additionally permits a reference lookup containing only non-patient product-identification details; never include clinical records or patient context.
 - ChatGPT on the web may process records in the cloud; do not claim on-device-only processing. Use only data permitted by the requester's institutional policy for the selected host.
 
 ## Input handling
@@ -26,7 +26,7 @@ The requester may use:
 
 ```text
 Use $clinical-note.
-Note type: admission | acceptance | progress | weekly | discharge | operation | holistic-care
+Note type: admission | clerk-admission | acceptance | progress | weekly | discharge | operation | holistic-care
 Mode: copy | review
 
 [paste source data]
@@ -38,6 +38,7 @@ Both fields are optional when they can be inferred safely. Default to Copy mode.
 
 Honor an explicit note type. Otherwise route as follows:
 
+- **Clerk admission**: an explicit `Clerk admission note`, `clerk admission`, or `clerk-admission-note` request uses `../clerk-admission-note/SKILL.md`. It has the same content as Full Admission Note; only its main medical-record headings become literal `[Heading]` lines. Check this route before the ordinary admission route.
 - **Admission or acceptance**: full admission note, initial history and physical, acceptance summary, admission summary, or a new hospitalization narrative. Read and follow `../admission-summary/SKILL.md` completely. Preserve the requester's distinction between a full Admission Note and a three-section Acceptance/Admission Summary. Both default to conventional non-POMR format; use numbered problems and matched plans only after an explicit POMR/problem-oriented request. Source numbering or multiple diagnoses alone do not activate POMR.
 - **Progress**: progress note, daily note, today's note, SOAP, DAP, PAP, problem list update, or one-day inpatient review. Read and follow `../progress-note/SKILL.md` completely. Use one daily entry with one Problem heading and one global S/O/A/P sequence: preserve a supplied Problem and generate it only when absent and supported by the source; keep S to one sentence and O concise under category headings. Treat `SOAP` alone as conventional non-POMR SOAP; activate POMR only when the requester explicitly asks for POMR, a problem-oriented note, numbered problems, or explicitly requests a supplied POMR format.
   For SOAP, default to four separate fenced `text` copy blocks with S/O/A/P labels outside their respective blocks, and keep Problem, date, and physician considerations outside. Follow explicit copying-format overrides. Prioritize documented daily changes and only carry forward facts confirmed applicable to the requested date; update A/P from current supplied records or requester-authorized plans. Never substitute cosmetic paraphrasing or invented changes for a substantive daily update, and retain essential unchanged care.
@@ -59,6 +60,10 @@ Apply the local guide's four quality criteria throughout: completeness, clarity,
 - In Admission Notes, Acceptance Summaries, and Progress Notes, format every generated list item with the literal prefix `*.`. Do not use `-`, `+`, numbered Markdown lists, or Unicode bullets for list items. Problem identifiers such as `#1.` remain stable identifiers and follow `*.` when the item is listed.
 - In the copy-ready medical record, state clinical content directly. Never introduce facts with record-source scaffolding such as `Per nursing documentation`, `According to the nursing note`, `Per chart review`, `The chart showed`, `The record noted`, or similar wording. When clinically important, retain person-level attribution such as `The patient reported` or `The family stated`; place unresolved source conflicts outside the medical record.
 - For a holistic-care assessment, use Chinese, preserve the exact B/P/Sc/Sp/E/P/D section order, use plain headings without Markdown bold markers, and begin every list item with `*.`. Because the form requires every domain, explicitly identify an unsupported psychosocial, spiritual, economic, preference, or disposition field as not documented and state what should be clarified; never invent the missing fact.
+
+## Medication names
+
+Read and apply [Medication names](../../references/medication-names.md) for every medication in this output, including medication/allergy histories, inpatient treatments, discharge prescriptions, and holistic-care content. This authorizes only verified generic-name annotation; all other supplied-fact and privacy safeguards remain in force.
 
 ## Output modes
 

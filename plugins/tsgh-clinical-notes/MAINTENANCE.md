@@ -47,3 +47,7 @@ standalone skills。具體維護規則見同目錄 AGENTS.md。
 完整撤回會恢復整理前的重複入口，不能視為正常更新方式。
 
 本次只做本機來源整理，未發布或推送任何遠端版本。
+
+## 2026-11-08：0.1.7
+
+私人帳號版新增共用商品名（學名）規則與 Clerk admission note 獨立入口；後者沿用完整 Admission Note，僅將主要欄位標題改為 `[Heading]`。保留原有六個 skills、POMR 啟用條件與預設提示。商品資訊查核只允許不含病人資訊的產品識別資料。原始版本已於修改前備份。此版本透過原私人外掛的 guarded update 儲存，不代表 GitHub marketplace 或既有對話已自動更新。

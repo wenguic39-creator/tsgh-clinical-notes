@@ -13,7 +13,7 @@ REPO = Path(__file__).resolve().parents[1]
 PLUGIN = REPO / "plugins" / "tsgh-clinical-notes"
 SKILLS = {
     "clinical-note", "admission-summary", "progress-note", "weekly-summary",
-    "discharge-summary", "operation-note",
+    "discharge-summary", "operation-note", "clerk-admission-note",
 }
 
 
@@ -38,7 +38,7 @@ def validate(root=PLUGIN):
     prompts = interface["defaultPrompt"]
     require(isinstance(prompts, str) or (isinstance(prompts, list) and 1 <= len(prompts) <= 3 and all(isinstance(p, str) and p for p in prompts)), "Use one prompt or up to three prompts")
     require(legacy.get("skills") in ("./skills", "./skills/"), "Compatibility manifest must discover all skills")
-    require({p.name for p in (root / "skills").iterdir() if p.is_dir()} == SKILLS, "Expected all six skills")
+    require({p.name for p in (root / "skills").iterdir() if p.is_dir()} == SKILLS, "Expected seven skills")
     # This export is deliberately skills-only, so it can run without a desktop server.
     for config in (manifest["extensions"]["com.openai"], legacy):
         require(not any(config.get(k) for k in ("apps", "mcpServers", "hooks")), "Do not add service or hook dependencies to this skills-only package")

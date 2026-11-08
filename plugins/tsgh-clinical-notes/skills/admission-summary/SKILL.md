@@ -1,6 +1,6 @@
 ---
 name: admission-summary
-description: Draft TSGH-aligned English Acceptance/Admission Summaries or full Admission Notes from clinician-supplied admission facts. Use for a new hospitalization, initial history and physical, or the Brief History, Impression, and Plans acceptance format.
+description: Draft TSGH-aligned English Acceptance/Admission Summaries, full Admission Notes, or Clerk admission notes from clinician-supplied admission facts. Use for a new hospitalization, initial H&P, Clerk admission note with bracketed main headings, or Brief History / Impression / Plans.
 ---
 
 # Admission Summary and Admission Note
@@ -15,13 +15,14 @@ Create either a three-section Acceptance/Admission Summary or a full Admission N
 - Never write `Not provided`, `None provided`, an invented normal/negative statement, or a filler plan inside the medical record when source data are absent. Do not use bracketed placeholders for missing patient facts.
 - Keep missing clinically relevant information and possible follow-up evaluation outside the medical record, as described under **Outside-record physician considerations**.
 - Do not turn an outside-record consideration into an order or documented plan. Organize only clinician-documented impressions and plans inside the note.
-- Process supplied records only within the current authorized ChatGPT or Codex session. Do not send clinical source data to web search, connectors, external plugins, MCP servers, or other services. Loading this plugin's bundled skills and references is allowed.
+- Process supplied records only within the current authorized ChatGPT or Codex session. Do not send clinical source data to web search, connectors, external plugins, MCP servers, or other services. Loading this plugin's bundled skills and references is allowed. The medication-name rule additionally permits a reference lookup containing only non-patient product-identification details; never include clinical records or patient context.
 - ChatGPT on the web may process records in the cloud; do not claim on-device-only processing. Use only data permitted by the requester's institutional policy for the selected host.
 - Treat every result as requiring clinician review and sign-off.
 
 ## Choose the format
 
 - Use **Acceptance Summary** for `acceptance summary`, `admission summary`, or a request for `Brief History / Impression / Plans`.
+- Use **Clerk admission note** for `Clerk admission note`, `clerk admission`, or `clerk-admission-note`. Use the Full Admission Note content and field order, then apply the Clerk heading rule below. An explicit Clerk request takes priority over the generic admission-note trigger.
 - Use **Full Admission Note** for `admission note`, `initial H&P`, `initial history and physical`, or a request for the complete admission database.
 - If the wording is only `admission` and the intended format cannot be inferred from the supplied fields, ask one short clarification question.
 
@@ -33,6 +34,10 @@ The TSGH writing priorities are completeness, clarity, accuracy, and timeliness.
 - Use POMR only when the requester explicitly asks for POMR, a problem-oriented admission, or a numbered problem list with corresponding plans. Multiple diagnoses, source problem numbers, pasted POMR text, and requests to match a template's layout alone do not activate POMR.
 - In ordinary mode, list Impression items with `*.` and no `#1.`/`#2.` identifiers, even when there is only one diagnosis. Keep supplied diagnostic, therapeutic, and educational plans under their conventional headings without problem numbers.
 - In explicit POMR mode only, preserve established problem identifiers; if none exist, establish them once in supplied clinician priority order. Link plans to those identifiers only when supported. Keep uncertainty, ordering, clinical facts, and existing source safeguards intact in both modes.
+
+## Medication names
+
+Read and apply [Medication names](../../references/medication-names.md) for every medication in this output, including medication/allergy histories, inpatient treatments, discharge prescriptions, and holistic-care content. This authorizes only verified generic-name annotation; all other supplied-fact and privacy safeguards remain in force.
 
 ## Output modes
 
@@ -48,7 +53,7 @@ The TSGH writing priorities are completeness, clarity, accuracy, and timeliness.
 4. Record positive and negative findings only when explicitly documented. Never copy the template's sample normal review of systems, examination, exposure history, family history, psychosocial statements, or allergy status unless supported by this patient's source.
 5. Preserve every supplied unit directly beside its test value, including `%`, temperature units, pressure units, rates, concentrations, and dimensions. Do not convert, standardize, or drop a supplied unit. If a measurement is supplied without a unit, do not guess one; omit the unverified measurement when safe and flag it outside the medical record for unit verification. Established dimensionless scores and ratios may remain as documented.
 6. Keep provisional diagnoses and differentials explicitly provisional. Include supporting rationale only when supplied by the clinician or directly documented as such.
-7. For medications, preserve the documented generic or brand name, dose, route, frequency, duration, and hold criteria. Prefer a generic name only when it is supplied or the requester authorizes conversion.
+7. For medications, preserve the documented name, dose, route, frequency, duration, and hold criteria. Apply the shared Medication names rule: retain a supplied brand and immediately append its verified generic name in parentheses; do not replace the brand or guess the ingredient.
 8. Use the provided admission template as the field-order and wording-style reference, not as patient data. Template alternatives and stock sentences are choices, not defaults.
 9. Only after an explicit POMR request, establish the admission problem list as the longitudinal POMR index. Preserve prior problem numbers when supplied. When no numbering exists, assign `#1.`, `#2.`, and subsequent numbers once in clinician-supplied priority order; do not claim that newly assigned numbers are already the official chart numbering.
 10. In explicit POMR mode only, keep the primary admitting problem as `#1.` when the supplied clinician order supports it. Retain secondary acute problems, relevant chronic conditions, functional or psychosocial problems, and risk factors only when documented and clinically relevant to the hospitalization.
@@ -161,6 +166,33 @@ List only documented medications, procedures, therapies, supportive care, monito
 ### Educational plans
 
 List only education, consent, prognosis, shared decisions, safety measures, or family discussions explicitly documented for this patient. In ordinary mode, leave plan items unnumbered; link each item to the corresponding problem number only in explicit POMR mode and when supported.
+
+## Clerk admission note
+
+Use exactly the same clinical content, field order, completeness requirements, Copy/Review modes, list markers, and POMR gate as Full Admission Note. Only the main medical-record section headings change. Render each as a plain standalone line in one pair of literal ASCII square brackets, without Markdown heading or bold markers and without a heading-level `*.` prefix. For example, render `### *. Past history` as `[Past history]`; body list items still begin with `*.`.
+
+Use these main headings in the Full Admission Note order:
+
+```text
+[Chief complaint]
+[Present illness]
+[Past history]
+[Personal history]
+[Allergy history]
+[Family history]
+[Psycho-socio-economic assessment]
+[Review of Systems]
+[Vital signs]
+[Physical examination]
+[General laboratory data]
+[Chest X-ray and other imaging]
+[Impression]
+[Diagnostic plans]
+[Therapeutic plans]
+[Educational plans]
+```
+
+Apply the same transformation to additional main headings explicitly requested by the clinician. Keep subordinate system labels and all clinical prose unchanged. Brackets here identify section titles; they are not missing-data placeholders. Do not bracket the outside-record physician-considerations heading. Ordinary Admission Notes and Acceptance Summaries keep their existing heading format. Do not add a separate cover title or invent facts to populate an empty field. Preserve required blank fields and omit empty optional subheadings as in Full Admission Note.
 
 ## Outside-record physician considerations
 

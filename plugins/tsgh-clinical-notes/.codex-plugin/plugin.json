@@ -18,7 +18,7 @@
     ]
   },
   "name": "tsgh-clinical-notes",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Personal TSGH-aligned inpatient clinical documentation and holistic-care assessment workflows.",
   "author": {
     "name": "Personal clinical documentation tools"

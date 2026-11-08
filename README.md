@@ -1,6 +1,6 @@
 # TSGH Clinical Notes for ChatGPT and Codex
 
-TSGH 格式的住院病歷草稿外掛，版本 **0.1.6**。包含六個 skills：clinical-note（格式分流）、Admission、Progress、Weekly、Discharge、Operation；也支援中文 B/P/Sc/Sp/E/P/D 全人照護評估。
+TSGH 格式的住院病歷草稿外掛，版本 **0.1.7**。包含七個 skills：clinical-note（格式分流）、Admission、Clerk Admission、Progress、Weekly、Discharge、Operation；也支援中文 B/P/Sc/Sp/E/P/D 全人照護評估。
 
 **分享給同事：**先看 [中文安裝說明](安裝說明.md)，或到 [Releases 下載完整外掛 ZIP](https://github.com/wenguic39-creator/tsgh-clinical-notes/releases/latest)。GitHub 的 **Code > Download ZIP** 是整份原始碼，不能直接當作單一外掛上傳。
 
@@ -18,9 +18,9 @@ This is an instruction-only package: no MCP server, API key, desktop process, or
 
 ### Personal ChatGPT account
 
-Download `tsgh-clinical-notes-0.1.6.zip` from Releases. In an account with Plugin Creator available, attach the ZIP and ask:
+Download `tsgh-clinical-notes-0.1.7.zip` from Releases. In an account with Plugin Creator available, attach the ZIP and ask:
 
-> Save this tsgh-clinical-notes package as my private plugin. Preserve all six skills, references, and assets. If an editable copy already exists, verify its identity and update it without changing its sharing.
+> Save this tsgh-clinical-notes package as my private plugin. Preserve all seven skills, references, and assets. If an editable copy already exists, verify its identity and update it without changing its sharing.
 
 Open the returned plugin link and install if prompted. Start a new supported chat, select `@TSGH Clinical Notes`, and supply the note type and permitted source facts. If creation is unavailable, check the account's permissions; cloning the repository will not enable it.
 
@@ -47,7 +47,7 @@ Start a new task after installation. These are Codex CLI commands, not commands 
 
 ## Try it
 
-Select the installed plugin and ask for a `SOAP progress note`, an `Admission Note`, or a `全人照護評估`, followed by authorized source facts. Ordinary SOAP uses one Problem heading and one global S/O/A/P sequence per day, a one-sentence S, and concise grouped O. Preserve a supplied Problem; generate it only when absent and supported by the source. Admission and Acceptance also default to non-POMR; numbered problems and matched plans require an explicit request. SOAP fields are separately copyable by default. Daily updates prioritize documented changes, preserve essential ongoing care, and avoid cosmetic A/P paraphrasing. Review every draft before use.
+Select the installed plugin and ask for a `SOAP progress note`, an `Admission Note`, a `Clerk admission note` with bracketed section headings, or a `全人照護評估`, followed by authorized source facts. Ordinary SOAP uses one Problem heading and one global S/O/A/P sequence per day, a one-sentence S, and concise grouped O. Preserve a supplied Problem; generate it only when absent and supported by the source. Admission and Acceptance also default to non-POMR; numbered problems and matched plans require an explicit request. SOAP fields are separately copyable by default. Daily updates prioritize documented changes, preserve essential ongoing care, and avoid cosmetic A/P paraphrasing. Review every draft before use.
 
 ## Build and release
 
@@ -58,7 +58,7 @@ python scripts/package_plugin.py --check
 python scripts/package_plugin.py
 ```
 
-The deterministic build validates manifests, six skills, assets, and relative references. It exports `dist/tsgh-clinical-notes-0.1.6.zip` and `dist/SHA256SUMS`, including hidden compatibility files. It does not prove successful installation or clinical drafting in every host.
+The deterministic build validates manifests, seven skills, assets, and relative references. It exports `dist/tsgh-clinical-notes-0.1.7.zip` and `dist/SHA256SUMS`, including hidden compatibility files. It does not prove successful installation or clinical drafting in every host.
 
 GitHub Actions validates pull requests and builds artifacts. After a merge to `main`, it publishes a missing version as a GitHub Release with the ZIP, checksum, and matching notes from `releases/v<version>.md`. Existing releases are left intact. For future releases, synchronize both manifests, add release notes, and review the changes before merging.
 
